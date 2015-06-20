@@ -21,16 +21,16 @@ void error(const char *msg)
 	exit(1);
 }
 
-int main ()
+int main (int argc, char **argv)
 {
 	/* Defining Variables */
 
 	long unsigned int totB;
 	char revbuf[LENGTH]; // Receiver buffer
-
+	int nsockfd;
 	int  listen_sd, conn_sd;
 	int port, len, num, nread;
-	char buff[DIM_BUFF];
+//	char buff[DIM_BUFF];
 	const int on = 1;
 	struct sockaddr_in cliaddr, servaddr;
 	struct hostent *host;
@@ -128,7 +128,7 @@ int main ()
 			}		
 		}
 
-		printf("[Server] Server has got connected from %s.\n", inet_ntoa(addr_remote.sin_addr));
+		printf("[Server] Server has got connected.\n");
 
 		/*Receive File from Client */
 		char* fr_name = "/home/aryan/Desktop/receive.txt";
