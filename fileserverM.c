@@ -152,7 +152,7 @@ int main (int argc, char **argv)
 
 			bzero(revbuf, LENGTH); 
 			int nRead = 0;
-			while((nRead = recv(nsockfd, revbuf, LENGTH, 0)) > 0) 
+			while((nRead = recv(conn_sd, revbuf, LENGTH, 0)) > 0) 
 			{
 			    /*int write_sz = fwrite(revbuf, sizeof(char), nRead, fr);
 				if(write_sz < nRead)
