@@ -131,6 +131,7 @@ int main (int argc, char **argv)
 		printf("[Server] Server has got connected.\n");
 
 		/*Receive File from Client */
+#ifdef FILEW 
 		char* fr_name = "/home/aryan/Desktop/receive.txt";
 		FILE *fr = fopen(fr_name, "a");
 		if(fr == NULL)
@@ -138,6 +139,7 @@ int main (int argc, char **argv)
 		else
 		{
 
+#endif
 			/* Call the Script */
 			//system("cd ; chmod +x script.sh ; ./script.sh");
 			
@@ -182,9 +184,10 @@ int main (int argc, char **argv)
 			curtime2=time(NULL);
 			printf("tempo 1: %ld   tempo 2:  %ld!\n", curtime, curtime2);
 			printf("totB: %lu\n", totB);			
+#ifdef FILEW 
 			fclose(fr); 
 		}
-
+#endif
 
 	}
 }
