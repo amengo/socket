@@ -11,8 +11,7 @@
 #include <arpa/inet.h>
 #include <netdb.h>
 
-#define PORT 61000
-#define LENGTH 1024 
+#define LENGTH 4096
 
 
 void error(const char *msg)
@@ -33,11 +32,18 @@ int main(int argc, char *argv[])
 
 	/* CONTROLLO ARGOMENTI */
 
-	if(argc!=3)
+	if(argc!=4)
 	{
 		printf("Usage:%s serverAddress serverPort\n", argv[0]);
 		exit(1);
 	}
+
+
+/*	char* fs_name = "/home/ubuntu/Downloads/cities1000.txt";"/etc/brltty/zh-tw.ctb";"/home/ubuntu/log/jsonlog.json"; */
+
+	char* fs_name = argv[3];
+
+
 
 	/* INIZIALIZZAZIONE INDIRIZZO SERVER */
 
@@ -96,7 +102,6 @@ int main(int argc, char *argv[])
 
 
 	/* Send File to Server */
-	char* fs_name = "/home/ubuntu/Desktop/socket/fileserver.c";
 	char sdbuf[LENGTH]; 
 	printf("[Client] Sending %s to the Server... ", fs_name);
 	FILE *fs = fopen(fs_name, "r");
