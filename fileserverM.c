@@ -13,7 +13,7 @@
 
 #define PORT 60000 
 #define BACKLOG 5
-#define LENGTH 512 
+#define LENGTH 4096
 
 void error(const char *msg)
 {
@@ -24,8 +24,10 @@ void error(const char *msg)
 int main (int argc, char **argv)
 {
 	/* Defining Variables */
-
-	long unsigned int totB;
+	int totb=0;
+	int diffs=0;
+	float mbs=0.0;
+	long unsigned int totB=0;
 	char revbuf[LENGTH]; // Receiver buffer
 	int nsockfd;
 	int  listen_sd, conn_sd;
@@ -183,7 +185,15 @@ int main (int argc, char **argv)
 			printf("Ok received from client!\n");
 			curtime2=time(NULL);
 			printf("tempo 1: %ld   tempo 2:  %ld!\n", curtime, curtime2);
-			printf("totB: %lu\n", totB);			
+			printf("totB: %lu\n", totB);
+			totb=totB*8;
+			diffs=curtime2-curtime;
+			mbs=(float)totb/(float)(diffs);
+			mbs=mbs/1000;
+			mbs=mbs/1000;
+			printf("sec: %d\n",diffs);
+			printf("Mbit/sec: %f\n",mbs); 
+			totB=0;			
 #ifdef FILEW 
 			fclose(fr); 
 		}
