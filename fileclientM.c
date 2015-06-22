@@ -13,7 +13,6 @@
 
 #define LENGTH 4096
 
-
 void error(const char *msg)
 {
 	perror(msg);
@@ -113,17 +112,33 @@ int main(int argc, char *argv[])
 
 	bzero(sdbuf, LENGTH); 
 	int fs_block_sz; 
+	long unsigned int mand=0;
+	long unsigned int mandTemp=0;
+	time_t curtime, curtime2;
+	/* Get the current time. */
+	curtime = time (NULL);
 	while((fs_block_sz = fread(sdbuf, sizeof(char), LENGTH, fs)) > 0)
 	{
-		if(send(sd, sdbuf, fs_block_sz, 0) < 0)
+		if((mandTemp=send(sd, sdbuf, fs_block_sz, 0)) < 0)
 		{
 		    fprintf(stderr, "ERROR: Failed to send file %s. (errno = %d)\n", fs_name, errno);
 		    break;
 		}
 		bzero(sdbuf, LENGTH);
+		mand=mandTemp+mand;
 	}
+	curtime2= time(NULL);
 	printf("Ok File %s from Client was Sent!\n", fs_name);
-
+	printf("tempo 1: %ld   tempo 2:  %ld!\n", curtime, curtime2);
+	printf("mand: %lu\n", mand);
+	int totb=mand*8;
+	int diffs=curtime2-curtime;
+	float mbs=(float)totb/(float)(diffs);
+	mbs=mbs/1000;
+	mbs=mbs/1000;
+	printf("sec: %d\n",diffs);
+	printf("Mbit/sec: %f\n",mbs); 
+		
 
 	close (sd);
 	printf("[Client] Connection lost.\n");
